@@ -26,63 +26,64 @@
     use Application\Lib\Database\DatabaseConnection;
     use Application\Model\Aeronef\AeronefRepository;
     
-    $aeronef_id = $_GET["aeronef_id"];  
 
-    $aeronefRepositoty = new AeronefRepository();
-    $aeronefRepositoty->connection = new DatabaseConnection();
-    $aeronef = $aeronefRepositoty->getAeronef($aeronef_id); 
-     
-    
     
     ?>
 
     <div class="col-sm-9 col-xs-12 content pt-3 pl-0">
-        <h5 class="mb-3" ><strong>Aeronef informations update</strong></h5>
+        <h5 class="mb-3" ><strong>Add a new aeronef</strong></h5>
 
         <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-12">
                                 <div class="mt-4 mb-3 p-3  button-container bg-white border shadow-sm">
                                     <h6 class="mb-4">AERONEF</h6>
 
-                                    <form action="index.php?action=updateAeronefInfo&aeronef_id=<?= $aeronef_id ?>" method="post">
+                                    <form action="index.php?action=addNewAeronef" method="post">
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3" for="immatriculation">Immatriculation</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="immatriculation" name="immatriculation" value="<?= $aeronef->immatriculation ?>" />
+                                                <input type="text" class="form-control" id="immatriculation" name="immatriculation"  />
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3" for="S_N">S/N</label>
                                             <div class="col-sm-5">
-                                                <input type="number" class="form-control" id="S_N" name="S_N"  value="<?= $aeronef->SN ?>" />
+                                                <input type="number" class="form-control" id="S_N" name="S_N"  />
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3" for="FH">FH</label>
                                             <div class="col-sm-5">
-                                                <input type="number" class="form-control" id="FH" name="FH" value="<?= $aeronef->fh ?>" />
+                                                <input type="number" class="form-control" id="FH" name="FH" />
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3" for="LDGS">LDGS</label>
                                             <div class="col-sm-5">
-                                                <input type="number" class="form-control" id="LDGS" name="LDGS" value="<?= $aeronef->ldgs ?>" />
+                                                <input type="number" class="form-control" id="LDGS" name="LDGS" />
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3" for="RH_ENG_DH">RH_ENG_DH</label>
                                             <div class="col-sm-5">
-                                                <input type="number" class="form-control" id="RH_ENG_DH" name="RH_ENG_DH" value="<?= $aeronef->rh_eng_fh ?>" />
+                                                <input type="number" class="form-control" id="RH_ENG_DH" name="RH_ENG_DH" />
                                             </div>
                                         </div>
 
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3" for="LH_ENG_DH">LH_ENG_DH</label>
                                             <div class="col-sm-5">
-                                                <input type="number" class="form-control" id="LH_ENG_DH" name="LH_ENG_DH" value="<?= $aeronef->lh_eng_fh ?>" />
+                                                <input type="number" class="form-control" id="LH_ENG_DH" name="LH_ENG_DH" />
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label class="control-label col-sm-3" for="COMMISSIONING_DATE">COMMISSIONING DATE</label>
+                                            <div class="col-sm-5">
+                                                <input type="date" class="form-control" id="COMMISSIONING_DATE" name="COMMISSIONING_DATE" />
                                             </div>
                                         </div>
 
@@ -91,7 +92,7 @@
                                             <div class="col-sm-5">
                                                 <select class="custom-select" name="availability" id="availability" required>
                                                     <option value="">Availability selection</option>
-                                                    <option value="1">Available</option>
+                                                    <option value="1">Availability</option>
                                                     <option value="00">Unavailable</option>
                                                 </select>
                                             </div>
@@ -99,8 +100,9 @@
 
                                         
                                         <div class="form-group row">
-                                            <div class="offset-sm-3 col-sm-9">
-                                                <button type="submit" class="btn btn-info btn-lg">Update</button>
+                                        <label class="control-label col-sm-3"></label>
+                                            <div class="col-sm-5">
+                                                <button type="submit" class="btn btn-info btn-block">Add</button>
                                             </div>
                                         </div>
                                     </form>

@@ -53,7 +53,7 @@
                                         <td><?= htmlspecialchars($aeronef->rh_eng_fh) ?></td>
                                         <td><?= htmlspecialchars($aeronef->lh_eng_fh) ?></td>
 
-                                        <?php switch($aeronef->availability){
+                                        <?php switch($aeronef->availability_status){
                                             case 1: ?>
                                             <td><label class="badge badge-success badge-pill">Available</label></td>
                                             <?php  break; 
@@ -63,9 +63,9 @@
                                             }?>
                                         <td class="align-middle text-center">
                                             <form style="display:inline;" action="index.php?action=updateAeronefPage&aeronef_id=<?= $aeronef->aeronef_id ?>" method="post">
-                                                <button class="btn btn-success" ><i class="fa fa-pencil"></i></button>
+                                                <button class="btn btn-warning" ><i class="fa fa-pencil"></i></button>
                                             </form>
-                                            <form style="display:inline;" action="index.php?action=updateAeronefPage&aeronef_id=<?= $aeronef->aeronef_id ?>" method="post">
+                                            <form style="display:inline;" action="index.php?action=deleteAeronefPopup&aeronef_id=<?= $aeronef->aeronef_id ?>" method="post">
                                                 <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                             </form>
                                                                
@@ -74,8 +74,22 @@
 
                                     </tr>
                                     <?php 
-                                    }
-                                    ?> 
+                                    } 
+                                    ?>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <form style="display:inline;" action="index.php?action=addingAeronefPage" method="post">
+                                                <button class="btn btn-primary btn-block" ><i class="fa fa-plus"></i></button>
+                                            </form>
+                                        </td>
+                                    </tr> 
                                 </tbody>
                             </table>
                         </div>
@@ -94,7 +108,7 @@
 
 
 
-
+    <?php require('templates/pagesComponents/popup/aeronefPopup.php') ;?>                            
     <?php require('templates/pagesComponents/navbar/navbarFooter.php') ;?>
 
 

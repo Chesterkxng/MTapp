@@ -16,7 +16,9 @@ require_once('src/controllers/dashboardControllers/dashboard.php');
 
 // AERONEF CONTROLLERS IMPORT
 
-//require_once('src/controllers/aeronefControllers/aeronef.php');
+require_once('src/controllers/aeronefControllers/aeronef.php');
+
+
 
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\Personal\PersonalRepository;
@@ -28,6 +30,7 @@ use Application\Controllers\LoginControllers\forgottenPassword\forgottenPassword
 use Application\Controllers\LoginControllers\SecurityQA\SecurityQA;
 
 use Application\Controllers\DashboardControllers\Dashboard\Dashboard;
+use Application\Controllers\AeronefControllers\Aeronef\Aeronef;
 
 
 
@@ -158,6 +161,100 @@ try {
 
 
         // TECHNICAL MANAGEMENT ROUTER
+
+
+            // AERONEF ROUTER
+
+                // get the non deleted aeronef List
+        if($_GET['action'] === 'aeronefsList'){
+            if(isset($_SESSION['ISAUTH'])){
+                $isAuth = $_SESSION['ISAUTH'];
+                if($isAuth == 1){
+                    (new Aeronef())->getActiveAeronefs();
+                }
+            }else {
+                    (new SignIn())->signInPage();
+            }
+            //load the Aeronef Adding Form
+        } elseif($_GET['action'] === 'addingAeronefPage'){
+            if(isset($_SESSION['ISAUTH'])){
+                $isAuth = $_SESSION['ISAUTH'];
+                if($isAuth == 1){
+                    (new Aeronef())->addingFormPage();
+                }
+            }else {
+                    (new SignIn())->signInPage();
+            }
+            // Add the aeronef in the db based on the filled Form
+        } elseif($_GET['action'] === 'addNewAeronef'){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $input = $_POST;
+                if(isset($_SESSION['ISAUTH'])){
+                    $isAuth = $_SESSION['ISAUTH'];
+                    if($isAuth == 1){  
+                        (new Aeronef())->addNewAeronef($input);   
+                    }
+                } else {
+                    (new SignIn())->signInPage();
+                }
+            }  
+            
+            // delete aeronef Popup
+        }  elseif($_GET['action'] === 'deleteAeronefPopup'){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $aeroned_id = $_GET['aeronef_id'];
+                if(isset($_SESSION['ISAUTH'])){
+                    $isAuth = $_SESSION['ISAUTH'];
+                    if($isAuth == 1){  
+                        (new Aeronef())->sendDeletePopup($aeroned_id);   
+                    }
+                } else {
+                    (new SignIn())->signInPage();
+                }
+            }      
+            //  delete aeronef    
+        } elseif($_GET['action'] === 'deleteAeronef'){
+                $aeroned_id = $_GET['aeronef_id'];
+                if(isset($_SESSION['ISAUTH'])){
+                    $isAuth = $_SESSION['ISAUTH'];
+                    if($isAuth == 1){  
+                        (new Aeronef())->setAeronefInactive($aeroned_id);   
+                    }
+                } else {
+                    (new SignIn())->signInPage();
+                }
+                 
+            //  LOAD UPDATE AERONEF PAGE   
+        }elseif($_GET['action'] === 'updateAeronefPage'){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $aeroned_id = $_GET['aeronef_id'];
+                if(isset($_SESSION['ISAUTH'])){
+                    $isAuth = $_SESSION['ISAUTH'];
+                    if($isAuth == 1){  
+                        (new Aeronef())->updateAeronefPage($aeroned_id);   
+                    }
+                } else {
+                    (new SignIn())->signInPage();
+                }
+            }
+
+            // UPDATE THE AERONEF INFORMATIONS
+        } elseif($_GET['action'] === 'updateAeronefInfo'){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $aeroned_id = $_GET['aeronef_id'];
+                $input = $_POST;
+                if(isset($_SESSION['ISAUTH'])){
+                    $isAuth = $_SESSION['ISAUTH'];
+                    if($isAuth == 1){  
+                        (new Aeronef())->updateAeronef($aeroned_id, $input);   
+                    }
+                } else {
+                    (new SignIn())->signInPage();
+                }
+            }
+        }
+
+        
 
 
 
