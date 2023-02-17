@@ -2,7 +2,7 @@
 <!doctype html>
 <html lang="en">
   	<head>
-		<title>Aeronefs List</title>
+		<title>MTapp</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -48,7 +48,7 @@
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3" for="immatriculation">Immatriculation</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" id="immatriculation" name="immatriculation" value="<?= $aeronef->immatriculation ?>" />
+                                                <input type="text" style="text-transform: uppercase;" class="form-control" id="immatriculation" name="immatriculation" value="<?= $aeronef->immatriculation ?>" />
                                             </div>
                                         </div>
                                         <div class="form-group row">

@@ -243,10 +243,9 @@
                             </li>
 
                             <li class="parent">
-                                <a href="#" class=""><i class="fa fa-group mr-3"></i>
-                                    <span class="none">PERSONAL <i class="fa fa-angle-down pull-right align-bottom"></i></span>
+                                <a href="index.php?action=personnelList" class=""><i class="fa fa-group mr-3"></i>
+                                    <span class="none">PERSONNEL </span>
                                 </a>
-                            
                             </li>
                             
                         </ul>

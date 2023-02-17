@@ -21,7 +21,7 @@
     <?php require('templates/pagesComponents/navbar/navbar.php') ;?>
 
     <div class="col-sm-9 col-xs-12 content pt-3 pl-0">
-        <h5 class="mb-3" ><strong>Aeronefs List</strong></h5>
+        <h5 class="mb-3" ><strong>Personnel List</strong></h5>
 
         <div class="row mt-3">
                     <div class="col-sm-12">
@@ -30,42 +30,29 @@
                             <table class="table table-striped" id="project_table">
                                 <thead>
                                     <tr>
-                                        <th>Immatriculation</th>
-                                        <th>S/N</th>
-                                        <th>FH</th>
-                                        <th>LDGS</th>
-                                        <th>RH_ENG_DH</th>
-                                        <th>LH_ENG_DH</th>
-                                        <th>Availability</th>
-                                        <th>Action</th>
+                                        <th>GRADE </th>
+                                        <th>SURNAME</th>
+                                        <th>FIRST NAME</th>
+                                        <th>FUNCTION</th>
+                                        <th>ACTION</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                <?php  foreach($aeronefs as $aeronef)
+                                <?php  foreach($personals as $personal)
                                     {
                                     ?>
 
                                     <tr>
-                                        <td><?= htmlspecialchars($aeronef->immatriculation) ?></td>
-                                        <td><?= htmlspecialchars($aeronef->SN) ?></td>
-                                        <td><?= htmlspecialchars($aeronef->fh) ?></td>
-                                        <td><?= htmlspecialchars($aeronef->ldgs) ?></td>
-                                        <td><?= htmlspecialchars($aeronef->rh_eng_fh) ?></td>
-                                        <td><?= htmlspecialchars($aeronef->lh_eng_fh) ?></td>
-
-                                        <?php switch($aeronef->availability_status){
-                                            case 1: ?>
-                                            <td><label class="badge badge-success badge-pill">Available</label></td>
-                                            <?php  break; 
-                                            case 0: ?>
-                                            <td><label class="badge badge-danger badge-pill">Unavailable</label></td>
-                                            <?php  break; 
-                                            }?>
+                                        <td><?= htmlspecialchars($personal->grade) ?></td>
+                                        <td><?= htmlspecialchars($personal->surname) ?></td>
+                                        <td><?= htmlspecialchars($personal->first_name) ?></td>
+                                        <td><?= htmlspecialchars($personal->function) ?></td>
+        
                                         <td class="align-middle text-center">
-                                            <form style="display:inline;" action="index.php?action=updateAeronefPage&aeronef_id=<?= $aeronef->aeronef_id ?>" method="post">
+                                            <form style="display:inline;" action="index.php?action=updatePersonalPage&personal_id=<?= $personal->personal_id?>" method="post">
                                                 <button class="btn btn-warning" ><i class="fa fa-pencil"></i></button>
                                             </form>
-                                            <form style="display:inline;" action="index.php?action=deleteAeronefPopup&aeronef_id=<?= $aeronef->aeronef_id ?>" method="post">
+                                            <form style="display:inline;" action="index.php?action=deletePersonalPopup&personal_id=<?= $personal->personal_id?>" method="post">
                                                 <button class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                             </form>
                                                                
@@ -77,15 +64,13 @@
                                     } 
                                     ?>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
                                         <td>
-                                            <form style="display:inline;" action="index.php?action=addingAeronefPage" method="post">
+                                            <form style="display:inline;" action="index.php?action=addingPersonalPage" method="post">
                                                 <button class="btn btn-primary btn-block" ><i class="fa fa-plus"></i></button>
                                             </form>
                                         </td>
@@ -108,7 +93,7 @@
 
 
 
-    <?php require('templates/pagesComponents/popup/aeronefPopup.php') ;?>                            
+    <?php require('templates/pagesComponents/popup/personalPopup.php') ;?>                            
     <?php require('templates/pagesComponents/navbar/navbarFooter.php') ;?>
 
 

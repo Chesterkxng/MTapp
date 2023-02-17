@@ -109,7 +109,7 @@
   {
     swal({
       title: "Aeronef Message!",
-      text: "are you sure!",
+      text: "are you sure ?",
       icon: "warning",
       buttons: true
     } ).then(okay => {

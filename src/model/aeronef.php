@@ -130,7 +130,7 @@ class AeronefRepository
             WHERE `AERONEF_ID`= ? "
         );
 
-        $statement->execute([$immatriculation, $SN, $fh, $ldgs, $rh_eng_fh, $lh_eng_fh, $availability, $aeronef_id]);
+        $statement->execute([strtoupper($immatriculation), $SN, $fh, $ldgs, $rh_eng_fh, $lh_eng_fh, $availability, $aeronef_id]);
 
         $affectedLines = $statement->rowCount();
         if ($affectedLines == 1){
@@ -179,7 +179,7 @@ class AeronefRepository
             "INSERT INTO aeronef(IMMATRICULATION, S_N, FH, LDGS, RH_ENG_FH, LH_ENG_FH, COMMISSIONING_DATE ,AVAILABILITY_STATUS)
             VALUES(?, ?, ?, ?, ?, ?, ?, ?)"
         );
-        $statement->execute([$immatriculation, $sn, $fh, $ldgs, $rh_eng_fh, $lh_eng_fh, $commissioning_date, $availability]);
+        $statement->execute([strtoupper($immatriculation), $sn, $fh, $ldgs, $rh_eng_fh, $lh_eng_fh, $commissioning_date, $availability]);
         $affectedLine = $statement->rowCount();
         if ($affectedLine == 1){
             return 1 ;
