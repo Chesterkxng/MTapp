@@ -36,8 +36,8 @@
                                         <th>LDGS</th>
                                         <th>RH_ENG_DH</th>
                                         <th>LH_ENG_DH</th>
-                                        <th>Availability</th>
-                                        <th>Action</th>
+                                        <th>AVAILABILITY</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>

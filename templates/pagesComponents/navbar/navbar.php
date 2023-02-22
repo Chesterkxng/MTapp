@@ -229,7 +229,7 @@
                                 </a>
                                 <ul class="children" id="technical">
                                     <li class="child"><a href="index.php?action=aeronefsList" class="ml-4"><i class="fa fa-angle-right mr-2"></i> AERONEFS</a></li>
-                                    <li class="child"><a href="#" class="ml-4"><i class="fa fa-angle-right mr-2"></i> BREAKDOWNS</a></li>
+                                    <li class="child"><a href="index.php?action=breakdownList" class="ml-4"><i class="fa fa-angle-right mr-2"></i> BREAKDOWNS</a></li>
                                 </ul>
                             </li>
                             <li class="parent">

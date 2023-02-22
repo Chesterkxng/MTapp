@@ -21,6 +21,9 @@ require_once('src/controllers/aeronefControllers/aeronef.php');
 // PERSONAL CONTROLLERS IMPORT 
 require_once('src/controllers/personalControllers/personal.php');
 
+// BREAKDOWN CONTROLLERS IMPORT 
+require_once('src/controllers/breakdownControllers/breakdown.php');
+
 
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\Personal\PersonalRepository;
@@ -34,6 +37,7 @@ use Application\Controllers\LoginControllers\SecurityQA\SecurityQA;
 use Application\Controllers\DashboardControllers\Dashboard\Dashboard;
 use Application\Controllers\AeronefControllers\Aeronef\Aeronef;
 use Application\Controllers\PersonalControllers\Personal\Personal; 
+use Application\Controllers\BreakdownControllers\Breakdown\Breakdown;
 
 
 
@@ -259,6 +263,97 @@ try {
                     }
                 }
             // END OF AERONEF ROUTER
+
+            // BREAKDOWN ROUTER 
+                if($_GET['action'] === 'breakdownList'){
+                    if(isset($_SESSION['ISAUTH'])){
+                        $isAuth = $_SESSION['ISAUTH'];
+                        if($isAuth == 1){
+                            (new Breakdown())->breakdownList();
+                        }
+                    }else {
+                            (new SignIn())->signInPage();
+                    }
+                //load the Aeronef Adding Form
+                } elseif($_GET['action'] === 'breakdownAddingForm'){
+                    if(isset($_SESSION['ISAUTH'])){
+                        $isAuth = $_SESSION['ISAUTH'];
+                        if($isAuth == 1){
+                            (new Breakdown())->addingFormPage();
+                        }
+                    }else {
+                            (new SignIn())->signInPage();
+                    }
+                // add the breakdown based on the informations filled
+                } elseif($_GET['action'] === 'addBreakdown'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $input = $_POST;
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){  
+                                (new Breakdown())->addBreakdown($input);   
+                            }
+                        } else {
+                            (new SignIn())->signInPage();
+                        }
+                    }
+                // load the  Breakdown update FORM
+                } elseif($_GET['action'] === 'updateBreakdownForm'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $breakdown_id = $_GET['breakdown_id'];
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){  
+                                (new Breakdown())->updateBreakdownPage($breakdown_id);   
+                            }
+                        } else {
+                            (new SignIn())->signInPage();
+                        }
+                    }
+                // update the breakdown based on the informations filled in the FORM
+                } elseif($_GET['action'] === 'updateBreakdown'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $breakdown_id = $_GET['breakdown_id'];
+                        $input = $_POST;
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){  
+                                (new Breakdown())->updateBreakdown($breakdown_id, $input);   
+                            }
+                        } else {
+                            (new SignIn())->signInPage();
+                        }
+                    }
+                // send the delete popup when the delete button is pressed 
+                } elseif($_GET['action'] === 'deleteBreakdownPopup'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $breakdown_id = $_GET['breakdown_id'];
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){  
+                                (new Breakdown())->sendDeletePopup($breakdown_id);   
+                            }
+                        } else {
+                            (new SignIn())->signInPage();
+                        }
+                    }
+                //  delete apparently the breakdown when the confirmation button okay  is pressed 
+                } elseif($_GET['action'] === 'deleteBreakdown'){
+                    
+                        $breakdown_id = $_GET['breakdown_id'];
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){  
+                                (new Breakdown())->setBreakdownInactive($breakdown_id);   
+                            }
+                        } else {
+                            (new SignIn())->signInPage();
+                        }
+                    
+                //  delete apparently the breakdown when the confirmation button okay  is pressed 
+                }
+
+                
 
         
 
