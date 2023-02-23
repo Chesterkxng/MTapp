@@ -204,13 +204,10 @@
 
 
                             <li class="parent">
-                                <a href="#" onclick="toggle_menu('missions'); return false" class=""><i class="fa fa-plane mr-3"> </i>
-                                    <span class="none">MISSIONS MANAGEMENT <i class="fa fa-angle-down pull-right align-bottom"></i></span>
+                                <a href="index.php?action=missionList" class=""><i class="fa fa-plane mr-3"> </i>
+                                    <span class="none">MISSIONS MANAGEMENT </span>
                                 </a>
-                                <ul class="children" id="missions">
-                                    <li class="child"><a href="#" class="ml-4"><i class="fa fa-angle-right mr-2"></i> CURRENT MISSIONS</a></li>
-                                    <li class="child"><a href="#" class="ml-4"><i class="fa fa-angle-right mr-2"></i> HISTORIC</a></li>
-                                </ul>
+                                
                             </li>
             
                             <li class="parent">

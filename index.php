@@ -24,9 +24,13 @@ require_once('src/controllers/personalControllers/personal.php');
 // BREAKDOWN CONTROLLERS IMPORT 
 require_once('src/controllers/breakdownControllers/breakdown.php');
 
+// MISSION CONTROLLERS IMPORT 
+require_once('src/controllers/missionControllers/mission.php'); 
+
 
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\Personal\PersonalRepository;
+use Application\Model\Mission\MissionRepository;
 
 use Application\Controllers\LoginControllers\SignUp\SignUp;
 use Application\Controllers\LoginControllers\Profile\Profile;
@@ -38,6 +42,7 @@ use Application\Controllers\DashboardControllers\Dashboard\Dashboard;
 use Application\Controllers\AeronefControllers\Aeronef\Aeronef;
 use Application\Controllers\PersonalControllers\Personal\Personal; 
 use Application\Controllers\BreakdownControllers\Breakdown\Breakdown;
+use Application\Controllers\MissionControllers\Mission\Mission; 
 
 
 
@@ -149,7 +154,94 @@ try {
 
 
         // MISSION MANAGEMENT ROUTER
-
+                // redirect to the missions List
+                if($_GET['action'] === 'missionList'){
+                    if(isset($_SESSION['ISAUTH'])){
+                        $isAuth = $_SESSION['ISAUTH'];
+                        if($isAuth == 1){
+                            (new Mission())->missionList();
+                        }
+                    } else {
+                        (new SignIn())->signInPage();
+                    }
+                // once the adding button is clicked the user is redirected on the adding form
+                } elseif ($_GET['action'] === 'MissionAddingForm'){
+                    if(isset($_SESSION['ISAUTH'])){
+                        $isAuth = $_SESSION['ISAUTH'];
+                        if($isAuth == 1){
+                            (new Mission())->addingFormPage();
+                        }
+                    } else {
+                        (new SignIn())->signInPage();
+                    }
+                // add the new mission based on the informations filled in the form
+                } elseif($_GET['action'] === 'addMission'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $input = $_POST;
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){  
+                                (new Mission())->addMission($input);   
+                            }
+                        } else {
+                            (new SignIn())->signInPage();
+                        }
+                    }  
+            
+                //load the update form for a selected mission 
+                } elseif($_GET['action'] === 'updateMissionForm'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $mission_id = $_GET['mission_id'];
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){  
+                                (new Mission())->updateFormPage($mission_id);   
+                            }
+                        } else {
+                            (new SignIn())->signInPage();
+                        }
+                    }  
+            
+                // update the selected mission with informations filled 
+                } elseif($_GET['action'] === 'updateMission'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $mission_id = $_GET['mission_id'];
+                        $input = $_POST; 
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){  
+                                (new Mission())->updateMission($mission_id,$input);   
+                            }
+                        } else {
+                            (new SignIn())->signInPage();
+                        }
+                    } 
+                // delete mission Popup  
+                } elseif($_GET['action'] === 'deleteMissionPopup'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $mission_id = $_GET['mission_id'];
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){  
+                                (new Mission())->sendDeletePopup($mission_id);   
+                            }
+                        } else {
+                            (new SignIn())->signInPage();
+                        }
+                    } 
+                // delete mission  
+                }elseif($_GET['action'] === 'deleteMission'){
+                        $mission_id = $_GET['mission_id'];
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){  
+                                (new Mission())->setMissionInactive($mission_id);   
+                            }
+                        } else {
+                            (new SignIn())->signInPage();
+                        } 
+                // delete mission Popup  
+                }
 
 
 
@@ -352,13 +444,6 @@ try {
                     
                 //  delete apparently the breakdown when the confirmation button okay  is pressed 
                 }
-
-                
-
-        
-
-
-
 
         // END OF TECHNICAL MANAGEMENT ROUTEUR 
 

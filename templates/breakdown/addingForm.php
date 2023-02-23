@@ -50,7 +50,7 @@ use Application\Model\Personal\PersonalRepository;
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3" for="name">NAME</label>
                                             <div class="col-sm-5">
-                                                <input type="text" style="text-transform: uppercase;" class="form-control" id="name" name="name"  />
+                                                <input type="text" autocomplete="off" style="text-transform: uppercase;" class="form-control" id="name" name="name"  />
                                             </div>
                                         </div>
                                         <div class="form-group row">
