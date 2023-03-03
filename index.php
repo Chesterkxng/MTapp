@@ -15,7 +15,6 @@ require_once('src/controllers/dashboardControllers/dashboard.php');
 
 
 // AERONEF CONTROLLERS IMPORT
-
 require_once('src/controllers/aeronefControllers/aeronef.php');
 
 // PERSONAL CONTROLLERS IMPORT 
@@ -27,6 +26,8 @@ require_once('src/controllers/breakdownControllers/breakdown.php');
 // MISSION CONTROLLERS IMPORT 
 require_once('src/controllers/missionControllers/mission.php'); 
 
+// ORDER CONTROLLERS IMPORT
+require_once('src/controllers/orderControllers/order.php'); 
 
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\Personal\PersonalRepository;
@@ -44,10 +45,8 @@ use Application\Controllers\PersonalControllers\Personal\Personal;
 use Application\Controllers\BreakdownControllers\Breakdown\Breakdown;
 use Application\Controllers\MissionControllers\Mission\Mission; 
 
-
-
-
-
+use Application\Controllers\OrderControllers\Order\Order;
+use Application\Model\Order\OrderRepository;
 
 //use Application\Controllers\AeronefControllers\Aeronef\Aeronef;
 
@@ -450,6 +449,93 @@ try {
 
 
         // ORDER MANAGEMENT ROUTER
+                // get the orders list registered in db
+                if($_GET['action'] === 'ordersList'){
+                    if(isset($_SESSION['ISAUTH'])){
+                        $isAuth = $_SESSION['ISAUTH'];
+                        if($isAuth == 1){
+                            (new Order())->orderList(); 
+                        }
+                    }else {
+                            (new SignIn())->signInPage();
+                    }
+                //  load the adding form 
+                }if($_GET['action'] === 'orderAddingForm'){
+                    if(isset($_SESSION['ISAUTH'])){
+                        $isAuth = $_SESSION['ISAUTH'];
+                        if($isAuth == 1){
+                            (new Order())->addingFormPage(); 
+                        }
+                    }else {
+                            (new SignIn())->signInPage();
+                    }
+                // add the order based on the informations filled in the form  
+                }elseif($_GET['action'] === 'addOrder'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $input = $_POST;
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){  
+                                (new Order())->addOrder($input);   
+                            }
+                        } else {
+                            (new SignIn())->signInPage();
+                        }
+                    }
+                 // load the update Form    
+                }elseif($_GET['action'] === 'updateOrderForm'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $order_id = $_GET['order_id'];
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){  
+                                (new Order())->updateFormPage($order_id);   
+                            }
+                        } else {
+                            (new SignIn())->signInPage();
+                        }
+                    }
+                // update the order based on informations filled
+                }elseif($_GET['action'] === 'updateOrder'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $order_id = $_GET['order_id'];
+                        $input = $_POST; 
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){  
+                                (new Order())->updateOrder($input,$order_id);   
+                            }
+                        } else {
+                            (new SignIn())->signInPage();
+                        }
+                    }
+                // send the  confirmation Popup 
+                } elseif($_GET['action'] === 'deleteOrderPopup'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $order_id = $_GET['order_id'];
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){  
+                                (new Order())->sendDeletePopup($order_id);   
+                            }
+                        } else {
+                            (new SignIn())->signInPage();
+                        }
+                    }
+                //  delete apparently the Order when the confirmation button okay  is pressed 
+                }elseif($_GET['action'] === 'deleteOrder'){
+                    
+                    $order_id = $_GET['order_id'];
+                    if(isset($_SESSION['ISAUTH'])){
+                        $isAuth = $_SESSION['ISAUTH'];
+                        if($isAuth == 1){  
+                            (new Order())->setOrderInactive($order_id);   
+                        }
+                    } else {
+                        (new SignIn())->signInPage();
+                    }
+                
+            }
 
 
 
@@ -550,7 +636,7 @@ try {
                         (new SignIn())->signInPage();
                     }
                  
-            }
+                }
 
 
 

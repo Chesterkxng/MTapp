@@ -170,8 +170,7 @@
         use Application\Lib\Database\DatabaseConnection;
         use Application\Model\Personal\PersonalRepository;
 
-        if(isset($_SESSION['LOGIN_ID']))
-            {
+        if(isset($_SESSION['LOGIN_ID'])){
             $personalRepository = new PersonalRepository(); 
             $personalRepository->connection = new DatabaseConnection(); 
 
@@ -230,13 +229,10 @@
                                 </ul>
                             </li>
                             <li class="parent">
-                                <a href="#" onclick="toggle_menu('order'); return false" class=""><i class="fa fa-shopping-basket mr-3"></i>
-                                    <span class="none">ORDER MANAGEMENT <i class="fa fa-angle-down pull-right align-bottom"></i></span>
+                                <a href="index.php?action=ordersList"  class=""><i class="fa fa-shopping-basket mr-3"></i>
+                                    <span class="none">ORDER MANAGEMENT</span>
                                 </a>
-                                <ul class="children" id="order">
-                                    <li class="child"><a href="#" class="ml-4"><i class="fa fa-angle-right mr-2"></i> PENDING ORDERS</a></li>
-                                    <li class="child"><a href="#" class="ml-4"><i class="fa fa-angle-right mr-2"></i> HISTORIC</a></li>
-                                </ul>
+                        
                             </li>
 
                             <li class="parent">
