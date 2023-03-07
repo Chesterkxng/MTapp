@@ -215,7 +215,7 @@
                                 </a>
                                 <ul class="children" id="fuel">
                                     <li class="child"><a href="index.php?action=refuelingsList" class="ml-4"><i class="fa fa-angle-right mr-2"></i> REFUELING</a></li>
-                                    <li class="child"><a href="#" class="ml-4"><i class="fa fa-angle-right mr-2"></i> DEFUELING</a></li>
+                                    <li class="child"><a href="index.php?action=defuelingsList" class="ml-4"><i class="fa fa-angle-right mr-2"></i> DEFUELING</a></li>
                                 </ul>
                                 </a>
                             </li>

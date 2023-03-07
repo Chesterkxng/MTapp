@@ -31,6 +31,7 @@ require_once('src/controllers/orderControllers/order.php');
 
 // FUEL CONTROLLERS IMPORT 
 require_once('src/controllers/refuelingControllers/refueling.php'); 
+require_once('src/controllers/defuelingControllers/defueling.php'); 
 
 use Application\Lib\Database\DatabaseConnection;
 use Application\Model\Personal\PersonalRepository;
@@ -50,6 +51,8 @@ use Application\Controllers\MissionControllers\Mission\Mission;
 
 use Application\Controllers\OrderControllers\Order\Order;
 use Application\Controllers\RefuelingControllers\Refueling\Refueling; 
+use Application\Controllers\DefuelingControllers\Defueling\Defueling; 
+
 use Application\Model\Order\OrderRepository;
 
 //use Application\Controllers\AeronefControllers\Aeronef\Aeronef;
@@ -343,7 +346,94 @@ try {
                         (new SignIn())->signInPage();
                     } 
             }
+            //  END REFUELING ROUTER
 
+            // DEFUELING ROUTER
+                // load the refueling List 
+                if($_GET['action'] === 'defuelingsList'){
+                    if(isset($_SESSION['ISAUTH'])){
+                        $isAuth = $_SESSION['ISAUTH'];
+                        if($isAuth == 1){
+                            (new Defueling())->defuelingList();
+                        }
+                    }else {
+                            (new SignIn())->signInPage();
+                    }
+                // load the adding form 
+                } elseif($_GET['action'] === 'DefuelingAddingForm'){
+                    if(isset($_SESSION['ISAUTH'])){
+                        $isAuth = $_SESSION['ISAUTH'];
+                        if($isAuth == 1){
+                            (new Defueling())->addingFormPage();
+                        }
+                    }else {
+                            (new SignIn())->signInPage();
+                    }
+                // add a new refueling based on the informations filled 
+                } elseif($_GET['action'] === 'addDefueling'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $input = $_POST; 
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){
+                                (new Defueling())->addDefueling($input);
+                            }
+                        }else {
+                                (new SignIn())->signInPage();
+                        }
+                    }
+                // load the update form 
+                } elseif($_GET['action'] === 'updateDefuelingForm'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $defueling_id = $_GET['defueling_id']; 
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){
+                                (new Defueling())->updateDefuelingForm($defueling_id);
+                            }
+                        }else {
+                                (new SignIn())->signInPage();
+                        }
+                    }
+                // update refueling based on informations filled     
+                } elseif($_GET['action'] === 'updateDefueling'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $defueling_id = $_GET['defueling_id']; 
+                        $input = $_POST; 
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){
+                                (new Defueling())->updateDefueling($input,$defueling_id);
+                            }
+                        }else {
+                                (new SignIn())->signInPage();
+                        }
+                    }
+                // send the popup 
+                } elseif($_GET['action'] === 'deleteDefuelingPopup'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $defueling_id = $_GET['defueling_id'];
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){  
+                                (new Defueling())->sendDeletePopup($defueling_id);   
+                            }
+                        } else {
+                            (new SignIn())->signInPage();
+                        }
+                    } 
+                // delete Refueling 
+                } elseif($_GET['action'] === 'deleteDefueling'){
+                    $defueling_id = $_GET['defueling_id'];
+                    if(isset($_SESSION['ISAUTH'])){
+                        $isAuth = $_SESSION['ISAUTH'];
+                        if($isAuth == 1){  
+                            (new Defueling())->setDefuelingInactive($defueling_id);   
+                        }
+                    } else {
+                        (new SignIn())->signInPage();
+                    } 
+            }
                 
 
 
