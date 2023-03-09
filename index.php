@@ -9,6 +9,7 @@ require_once('src/controllers/loginControllers/profile.php');
 require_once('src/controllers/loginControllers/signIn.php'); 
 require_once('src/controllers/loginControllers/forgottenPassword.php');
 require_once('src/controllers/loginControllers/securityQA.php');
+require_once('src/controllers/loginControllers/signOut.php'); 
 
 //DASHBOARD CONTROLLERS IMPORT 
 require_once('src/controllers/dashboardControllers/dashboard.php');
@@ -42,6 +43,7 @@ use Application\Controllers\LoginControllers\Profile\Profile;
 use Application\Controllers\LoginControllers\SignIn\SignIn; 
 use Application\Controllers\LoginControllers\forgottenPassword\forgottenPassword;
 use Application\Controllers\LoginControllers\SecurityQA\SecurityQA;
+use Application\Controllers\LoginControllers\SignOut\SignOut; 
 
 use Application\Controllers\DashboardControllers\Dashboard\Dashboard;
 use Application\Controllers\AeronefControllers\Aeronef\Aeronef;
@@ -135,6 +137,17 @@ try {
              
                 }
             // END OF SIGN IN ROUTEUR 
+
+            // SIGN OUT ROUTER 
+                if($_GET['action'] === 'signOut'){
+                    (new SignOut())->signOut(); 
+                }
+
+
+
+
+
+            // END OF SIGN OUT ROUTER
 
 
 
@@ -770,8 +783,35 @@ try {
                                 (new SignIn())->signInPage();
                         }
                     }
-                // load the personal addingForm     
-                } elseif($_GET['action'] === 'addingPersonalPage'){
+                //  load the connected profile update page   
+                } elseif($_GET['action'] === 'updateProfilePage'){
+                   
+                        $login_id = $_GET['login_id'];
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){
+                                (new Personal())->updateCurrentProfilPage($login_id);
+                            }
+                        }else {
+                                (new SignIn())->signInPage();
+                        
+                    }
+                // update the connected profile based on informations filled 
+                }elseif($_GET['action'] === 'updateProfileInfos'){
+                    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                        $login_id= $_GET['login_id'];
+                        $input = $_POST;
+                        if(isset($_SESSION['ISAUTH'])){
+                            $isAuth = $_SESSION['ISAUTH'];
+                            if($isAuth == 1){
+                                (new Personal())->updateProfile($login_id, $input);
+                            }
+                        }else {
+                                (new SignIn())->signInPage();
+                        }
+                    }
+                // load the personal addingForm   
+                }elseif($_GET['action'] === 'addingPersonalPage'){
                     if ($_SERVER['REQUEST_METHOD'] === 'POST') { 
                         if(isset($_SESSION['ISAUTH'])){
                             $isAuth = $_SESSION['ISAUTH'];

@@ -27,11 +27,21 @@
    
     use Application\Model\Personal\PersonalRepository;
 
-    $personal_id = $_GET["personal_id"];  
+
+   
+    
 
     $personalRepositoty = new PersonalRepository();
     $personalRepositoty->connection = new DatabaseConnection();
-    $personal = $personalRepositoty->getPersonal($personal_id); 
+    if(isset($_GET["personal_id"])){
+        $personal_id = $_GET["personal_id"]; 
+        $personal = $personalRepositoty->getPersonal($personal_id);  
+    } elseif(isset($_GET["login_id"])){
+        $login_id = $_GET['login_id']; 
+        $personal = $personalRepositoty->getProfile($login_id);
+    }
+
+    
      
     
     
@@ -45,8 +55,15 @@
                                 <div class="mt-4 mb-3 p-3  button-container bg-white border shadow-sm">
                                     <h6 class="mb-4">PERSONAL</h6>
 
+                                    <?php if(isset($_GET["personal_id"])){?>
                                     <form action="index.php?action=updatePersonalInfos&personal_id=<?= $personal_id ?>" method="post">
-                                        
+                                    <?php } elseif(isset($_GET["login_id"])){?>
+                                    <form action="index.php?action=updateProfileInfos&login_id=<?= $login_id ?>" method="post">
+                                    <?php } ?>
+
+
+
+
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3" for="grade">GRADE</label>
                                             <div class="col-sm-5">

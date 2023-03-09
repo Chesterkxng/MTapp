@@ -100,6 +100,30 @@ class PersonalRepository
             }
 
         }
+
+
+
+
+
+        public function updateProfile(string $grade, string $first_name, string $surname, string $function, int $login_id): bool
+        {
+            $statement = $this->connection->getConnection()->prepare(
+                "UPDATE  personal
+                SET `GRADE` = ?, 
+                `FIRST_NAME` = ?, 
+                `SURNAME` = ?, 
+                `FUNCTION` = ?
+                 WHERE LOGIN_ID = ?"
+            ); 
+            $statement->execute([strtoupper($grade), strtoupper($first_name), strtoupper($surname), strtoupper($function), $login_id]); 
+
+            $affectedLine = $statement->rowCount();
+            if ($affectedLine == 1){
+                return 1 ;
+            }else{
+                return 0;
+            }
+        } 
     // END OF PROFILE SECTION
 
 

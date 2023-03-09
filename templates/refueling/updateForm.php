@@ -90,7 +90,7 @@
                                         <div class="form-group row">
                                             <label class="control-label col-sm-3" for="quantity">QUANTITY</label>
                                             <div class="col-sm-5">
-                                                <input type="number" value= '<?= $refueling->quantity ?>' class="form-control" id="quantity" name="quantity" required />
+                                                <input type="number" step="any" value= '<?= $refueling->quantity ?>' class="form-control" id="quantity" name="quantity" required />
                                             </div>
                                         </div>
 
