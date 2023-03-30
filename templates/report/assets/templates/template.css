@@ -1,0 +1,59 @@
+body {
+    background: rgb(204,204,204); 
+  }
+  page {
+    background: white;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 0.5cm;
+    box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+  }
+  page[size="A4"] {  
+    width: 21cm;
+    height: 29.7cm; 
+  }
+  page[size="A4"][layout="portrait"] {
+    width: 29.7cm;
+    height: 21cm;  
+  }
+  #icon_row {
+    padding: 50px;
+  }
+  img {
+    height: 120px;
+    width: 120px;
+  }
+  #title_row {
+    display: flex;
+    justify-content: center;
+  } 
+  #filter_row {
+    display: block;
+    padding-left: 15px;
+  } 
+  p{
+    display: inline;
+  }
+  #table_row{
+    display: flex;
+    padding-top: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  table{
+    width: 98%;
+    font-family: 'Times New Roman', Times, serif;  
+  }
+  table, th, tr, td {
+    border: 1.5px solid black;
+    border-collapse: collapse;
+  }
+  thead{
+    font-size: 0,5em;
+  }
+  tr{
+    text-align: center;
+  }
+  h1, h3 {
+    display: block;
+  }

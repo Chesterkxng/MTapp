@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>MTapp</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="template.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src='https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js'></script>
+</head>
+<body>
+    <page size="A4">
+        <div id="report">
+            <div id="icon_row">
+                <img src="assets/img/insigneAir.png" alt="AirForce Icon">
+            </div>
+            <div id="title_row">
+                <h3> MISSIONS REPORT</h3>
+            </div>
+            <div id="filter_row">
+                <h6>AERONEF : <p id="selected_aeronef"></p>
+                </h6>
+                <h6>PERIOD : <p id="selected_period"></p>
+                </h6>
+                <h6>TYPE : <p id="selected_type"></p>
+                </h6>
+                <h6>STATUS : <p id="selected_status"></p>
+                </h6>
+            </div>
+            <div id="table_row">
+                <table id="filtered_missions">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>AERONEF</th>
+                            <th>CAPTAIN</th>
+                            <th>DESTINATION</th>
+                            <th>DEPARTURE DATE</th>
+                            <th>RETURN DATE</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </page>
+    <script type="text/javascript">
+        fillTable()
+    </script>
+    <script type="text/javascript">
+        generatePdf()
+    </script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            // fil the report header 
+            var filter_str = JSON.parse(localStorage.getItem('filter_str'));
+            document.getElementById("selected_aeronef").innerHTML = filter_str.aeronef;
+            document.getElementById("selected_period").innerHTML = filter_str.period;
+            document.getElementById("selected_type").innerHTML = filter_str.type;
+            document.getElementById("selected_status").innerHTML = filter_str.status;
+            // fill the table 
+            var filtered_missions = JSON.parse(localStorage.getItem("filtered_missions"));
+            console.log(filtered_missions);
+            let table = document.getElementById("filtered_missions");
+            let i = 1;
+            for (let mission of filtered_missions) {
+                let tr = document.createElement('tr');
+                let td0 = document.createElement('td');
+                td0.textContent = i;
+                tr.appendChild(td0);
+                let td1 = document.createElement('td');
+                td1.textContent = mission.immatriculation;
+                tr.appendChild(td1);
+                let td2 = document.createElement('td');
+                td2.textContent = mission.captain;
+                tr.appendChild(td2);
+                let td3 = document.createElement('td');
+                td3.textContent = mission.destination;
+                tr.appendChild(td3);
+                let td4 = document.createElement('td');
+                td4.textContent = mission.departure_date;
+                tr.appendChild(td4);
+                let td5 = document.createElement('td');
+                td5.textContent = mission.return_date;
+                tr.appendChild(td5);
+                table.appendChild(tr)
+                i++;
+            }
+        }
+        )
+    </script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const element = document.getElementById("report");
+            html2pdf(element, {
+                margin: 5,
+                filename: 'report.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 2, logging: true, dpi: 192, letterRendering: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { avoid: 'tr' }
+            });
+            setTimeout(function () {
+                self.close();
+            }, 1000);
+        }
+        )
+    </script>
+</body>

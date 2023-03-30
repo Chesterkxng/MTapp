@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>MTapp</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="template.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src='https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js'></script>
+</head>
+<body>
+    <page size="A4">
+        <div id="report">
+            <div id="icon_row">
+                <img src="assets/img/insigneAir.png" alt="AirForce Icon">
+            </div>
+            <div id="title_row">
+                <h3> AERONEFS REPORT</h3>
+            </div>
+            <div id="filter_row">
+                <h6>AVAILABILITY : <p id="selected_availability"></p>
+                </h6>
+            </div>
+            <div id="table_row">
+                <table id="filtered_aeronefs">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Immatriculation</th>
+                            <th>S/N</th>
+                            <th>FH</th>
+                            <th>LDGS</th>
+                            <th>RH_ENG_DH</th>
+                            <th>LH_ENG_DH</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </page>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            // fil the report header 
+            var filter_str = JSON.parse(localStorage.getItem('filter_str'));
+            document.getElementById("selected_availability").innerHTML = filter_str.availability;
+            // fill the table 
+            var filtered_aeronefs = JSON.parse(localStorage.getItem("filtered_aeronefs"));
+            //console.log(filtered_refuelings); 
+            let table = document.getElementById("filtered_aeronefs");
+            let i = 1;
+            for (let aeronef of filtered_aeronefs) {
+                let tr = document.createElement('tr');
+                let td0 = document.createElement('td');
+                td0.textContent = i;
+                tr.appendChild(td0);
+                let td1 = document.createElement('td');
+                td1.textContent = aeronef.immatriculation;
+                tr.appendChild(td1);
+                let td2 = document.createElement('td');
+                td2.textContent = aeronef.SN;
+                tr.appendChild(td2);
+                let td3 = document.createElement('td');
+                td3.textContent = aeronef.fh;
+                tr.appendChild(td3);
+                let td4 = document.createElement('td');
+                td4.textContent = aeronef.ldgs;
+                tr.appendChild(td4);
+                let td5 = document.createElement('td');
+                td5.textContent = aeronef.lh_eng_fh;
+                tr.appendChild(td5);
+                let td6 = document.createElement('td');
+                td6.textContent = aeronef.rh_eng_fh;
+                tr.appendChild(td6);
+                table.appendChild(tr)
+                i++;
+            }
+        }
+        )
+    </script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            const element = document.getElementById("report");
+            html2pdf(element, {
+                margin: 5,
+                filename: 'report.pdf',
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 2, logging: true, dpi: 192, letterRendering: true },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                pagebreak: { avoid: 'tr' }
+            });
+            setTimeout(function () {
+                self.close();
+            }, 1000);
+        }
+        )
+    </script>
+</body>
