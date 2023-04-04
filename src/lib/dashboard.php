@@ -16,7 +16,11 @@ class DashboardRepository
             WHERE STATUS != 2 AND REMOVAL_STATUS = 0"
         ); 
         $row = $statement->fetch(); 
-        $pendingMissionsNumber = $row['PendingMissionsNumber'];
+        if (!empty($row['PendingMissionsNumber'])){
+            $pendingMissionsNumber = $row['PendingMissionsNumber'];
+        } else {
+            $pendingMissionsNumber = 0; 
+        }
         return $pendingMissionsNumber; 
     }
 
@@ -27,7 +31,11 @@ class DashboardRepository
             WHERE AVAILABILITY_STATUS = 1  AND REMOVAL_STATUS = 0"
         ); 
         $row = $statement->fetch(); 
-        $AvalaibleAeronefsNumber = $row['AvalaibleAeronefsNumber'];
+        if (!empty($row['AvalaibleAeronefsNumber'])){
+            $AvalaibleAeronefsNumber = $row['AvalaibleAeronefsNumber'];
+        } else {
+            $AvalaibleAeronefsNumber = 0; 
+        }
         return $AvalaibleAeronefsNumber; 
     }
 
@@ -38,7 +46,11 @@ class DashboardRepository
             WHERE AVAILABILITY_STATUS = 0  AND REMOVAL_STATUS = 0"
         ); 
         $row = $statement->fetch(); 
-        $UnavalaibleAeronefsNumber = $row['UnavalaibleAeronefsNumber'];
+        if (!empty($row['UnavalaibleAeronefsNumber'])){
+            $UnavalaibleAeronefsNumber = $row['UnavalaibleAeronefsNumber'];
+        } else {
+            $UnavalaibleAeronefsNumber = 0; 
+        }
         return $UnavalaibleAeronefsNumber; 
     }
 
@@ -50,7 +62,11 @@ class DashboardRepository
             WHERE REPAIRING_STATUS != 2 AND REMOVAL_STATUS = 0 "
         ); 
         $row = $statement->fetch(); 
-        $pendingBreakdownsNumber = $row['PendingBreakdownsNumber'];
+        if (!empty($row['PendingBreakdownsNumber'])){
+            $pendingBreakdownsNumber = $row['PendingBreakdownsNumber'];
+        } else {
+            $pendingBreakdownsNumber = 0; 
+        }
         return $pendingBreakdownsNumber; 
     }
 
@@ -61,7 +77,11 @@ class DashboardRepository
             WHERE DELIVERY_STATUS != 2 AND REMOVAL_STATUS = 0 "
         ); 
         $row = $statement->fetch(); 
-        $pendingOrdersNumber = $row['PendingOrdersNumber'];
+        if (!empty($row['PendingOrdersNumber'])){
+            $pendingOrdersNumber = $row['PendingOrdersNumber'];
+        } else {
+            $pendingOrdersNumber = 0; 
+        }
         return $pendingOrdersNumber; 
     }
 
@@ -76,7 +96,11 @@ class DashboardRepository
             WHERE REMOVAL_STATUS = 0 "
         ); 
         $row = $statement->fetch(); 
-        $refuelingsNumber = $row['RefuelingsNumber'];
+        if (!empty($row['RefuelingsNumber'])){
+            $refuelingsNumber = $row['RefuelingsNumber'];
+        } else {
+            $refuelingsNumber = 0; 
+        }
         return $refuelingsNumber; 
     }
 
@@ -89,7 +113,11 @@ class DashboardRepository
             WHERE REFUELING_DATE LIKE '$date%' AND REMOVAL_STATUS = 0 "
         ); 
         $row = $statement->fetch(); 
-        $MonthlyRefuelingsNumber = $row['MonthlyRefuelingsNumber'];
+        if (!empty($row['MonthlyRefuelingsNumber'])){
+            $MonthlyRefuelingsNumber = $row['MonthlyRefuelingsNumber'];
+        } else {
+            $MonthlyRefuelingsNumber = 0; 
+        }
         return $MonthlyRefuelingsNumber; 
     }   
 
@@ -102,7 +130,11 @@ class DashboardRepository
             WHERE REMOVAL_STATUS = 0 "
         ); 
         $row = $statement->fetch(); 
-        $refuelingQuantity = $row['RefuelingsQuantity'];
+        if (!empty($row['RefuelingsQuantity'])){
+            $refuelingQuantity = $row['RefuelingsQuantity'];
+        } else {
+            $refuelingQuantity = 0; 
+        }
         return $refuelingQuantity; 
     }
 
@@ -152,7 +184,11 @@ class DashboardRepository
             WHERE REMOVAL_STATUS = 0 "
         ); 
         $row = $statement->fetch(); 
-        $defuelingsNumber = $row['DefuelingsNumber'];
+        if (!empty($row['DefuelingsNumber'])){
+            $defuelingsNumber = $row['DefuelingsNumber'];
+        } else {
+            $defuelingsNumber = 0; 
+        }
         return $defuelingsNumber; 
     }
 
